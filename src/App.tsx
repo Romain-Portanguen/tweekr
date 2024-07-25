@@ -12,6 +12,7 @@ const MainContainer = styled.div`
   flex-direction: column;
   height: 100vh;
   justify-content: space-between;
+  padding: 10px;
   width: 100vw;
 `;
 

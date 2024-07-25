@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { DropdownMenu } from './DropdownMenu';
 
@@ -43,14 +43,18 @@ export const Hamburger: React.FC = () => {
   const [checked, setChecked] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleChange = () => {
+  const handleChange = useCallback(() => {
     setChecked(!checked);
     setDropdownOpen(!dropdownOpen);
-  };
+  }, [checked, dropdownOpen]);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     console.log('Logout clicked');
-  };
+  }, [checked, dropdownOpen]);
+
+  const handleTest = useCallback(() => {
+    console.log('Test clicked');
+  }, [checked, dropdownOpen]);
 
   return (
     <StyledLabel>
@@ -64,7 +68,11 @@ export const Hamburger: React.FC = () => {
           <StyledPath d="M7 16 27 16" />
         </StyledSvg>
       </StyledSvgContainer>
-      <DropdownMenu open={dropdownOpen} onLogout={handleLogout} />
+      <DropdownMenu
+        open={dropdownOpen}
+        onLogout={handleLogout}
+        onTest={handleTest}
+      />
     </StyledLabel>
   );
 };

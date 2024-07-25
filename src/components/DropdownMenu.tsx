@@ -15,7 +15,7 @@ const Menu = styled.div<{ open: boolean }>`
   right: 0;
   top: ${({ open }) => (open ? '50px' : '40px')};
   transition: top 0.3s ease, opacity 0.3s ease;
-  width: 160px;
+  width: 250px;
   z-index: 1000;
 `;
 
@@ -38,15 +38,21 @@ const MenuItem = styled.button`
 interface DropdownMenuProps {
   open: boolean;
   onLogout: () => void;
+  onTest: () => void;
 }
 
-export const DropdownMenu: React.FC<DropdownMenuProps> = ({ open, onLogout }) => {
+export const DropdownMenu: React.FC<DropdownMenuProps> = ({ open, onLogout, onTest }) => {
   const menuItems = [
     {
       id: 1,
-      label: 'Logout',
-      onClick: onLogout,
+      label: 'Under development 👷🏻‍♂️🚧',
+      onClick: onTest,
     },
+    // {
+    //   id: 1,
+    //   label: 'Logout',
+    //   onClick: onLogout,
+    // },
     // {
     //   id: 2,
     //   label: 'Settings',

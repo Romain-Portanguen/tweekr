@@ -32,7 +32,7 @@ const Title = styled.h1`
 
 export const Hero: React.FC = () => {
   const handleButtonClick = useCallback(() => {
-    window.open("https://github.com/Romain-Portanguen", "_blank");
+    window.open("https://github.com/Romain-Portanguen/tweekr", "_blank");
   }, []);
 
   return (

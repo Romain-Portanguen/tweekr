@@ -27,6 +27,7 @@
 - [📦 Modules](#-modules)
 - [🚀 Getting Started](#-getting-started)
   - [⚙️ Installation](#️-installation)
+  - [📑 Configuration](#-configuration)
   - [🤖 Usage](#-usage)
 - [🎗 License](#-license)
 </details>
@@ -162,6 +163,15 @@ Tweekr improves user engagement through interactive features and strengthens com
 > ```console
 > $ npm install
 > ```
+
+### 📑 Configuration
+
+>To use Tweek'r and generate tweets, it's important to have a Mistral API key. You can refer to the [official documentation](https://docs.mistral.ai/) to do this.
+>Once you have generated your API key, start by creating an `.env` file and adding the entry `REACT_APP_MISTRAL_API_KEY` to it. Once this is done, tweet generation will be possible. The app relies on the `open-mixtral-8x7b` model, but you are free to modify this value to the model of your choice by editing this line:
+>
+>`const model = 'open-mixtral-8x7b';`
+>
+>Have fun!
 
 ### 🤖 Usage
 

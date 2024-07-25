@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
         <IconLink href="https://github.com/Romain-Portanguen" target="_blank" rel="noopener noreferrer">
           <RxGithubLogo size={24} />
         </IconLink>
-        <IconLink href="www.linkedin.com/in/ṛomain-portangueṇ" target="_blank" rel="noopener noreferrer">
+        <IconLink href="https://www.linkedin.com/in/ṛomain-portangueṇ" target="_blank" rel="noopener noreferrer">
           <FaLinkedin size={24} />
         </IconLink>
       </ContentWrapper>
