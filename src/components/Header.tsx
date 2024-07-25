@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { TbWritingSign } from "react-icons/tb";
-import { RxGithubLogo } from "react-icons/rx";
+import { Hamburger } from './Hamburger';
 
 const Container = styled.header`
   align-items: center;
@@ -47,9 +47,7 @@ export const Header: React.FC = () => {
         <TbWritingSign size={32} />
         <Title>Tweek'r App</Title>
       </ContentWrapper>
-      <IconWrapper href="https://github.com" target="_blank" rel="noopener noreferrer">
-        <RxGithubLogo size={32} />
-      </IconWrapper>
+      <Hamburger />
     </Container>
   );
 };

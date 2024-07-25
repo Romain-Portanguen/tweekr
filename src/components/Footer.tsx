@@ -23,13 +23,13 @@ const ContentWrapper = styled.div`
 
 const Text = styled.p`
   color: #2D3748;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0;
 `;
 
 const TextLink = styled.a`
   color: #3182CE;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   margin: 0;
   text-decoration: none;

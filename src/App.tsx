@@ -22,7 +22,7 @@ const ContentWrapper = styled.div`
   gap: 16px;
   height: 100%;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 20px;
   max-width: 920px;
   padding: 12px;
   width: 100%;
