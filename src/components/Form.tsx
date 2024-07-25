@@ -1,10 +1,14 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
+import { ActionButton } from './ActionButton';
+import { cleanResponse } from '../utils/cleanResponse';
+import { DotLoader } from './DotLoader';
 import { getTweetResponse } from '../services/mistralService';
 import { Modal } from './Modal';
-import { DotLoader } from './DotLoader';
-import { ActionButton } from './ActionButton';
 import { RxReload, RxCopy } from "react-icons/rx";
+import { Step } from './Step';
+import { useDailyToken } from '../hooks/useDailyToken';
+import { useTypingEffect } from '../hooks/useTypingEffect';
 
 const Container = styled.div`
   align-items: center;
@@ -14,46 +18,6 @@ const Container = styled.div`
   max-width: 700px;
   padding: 40px 16px;
   width: 100%;
-`;
-
-const Step = styled.div<{ isModalContent?: boolean }>`
-  align-items: ${({ isModalContent }) => isModalContent ? 'center' : 'flex-start'};
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 24px;
-  width: 100%;
-`;
-
-const StepLabel = styled.label`
-  align-items: center;
-  color: #2D3748;
-  display: flex;
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
-
-  &::before {
-    background-color: #000;
-    border-radius: 50%;
-    color: #fff;
-    content: attr(data-step);
-    display: inline-block;
-    height: 24px;
-    line-height: 24px;
-    margin-right: 8px;
-    text-align: center;
-    width: 24px;
-  }
-
-  a {
-    color: #3182ce;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 `;
 
 const TextArea = styled.textarea`
@@ -119,6 +83,15 @@ const TweetContainer = styled.div`
   width: 100%;
 `;
 
+const StyledTweet = styled.div`
+  color: #333;
+  font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 16px;
+  text-align: center;
+`;
+
 export const Form: React.FC = () => {
   const [copyButtonText, setCopyButtonText] = useState('Copy');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -126,32 +99,9 @@ export const Form: React.FC = () => {
   const [theme, setTheme] = useState<string>('');
   const [tweet, setTweet] = useState<string>('');
   const [vibe, setVibe] = useState<'Casual' | 'Professional' | 'Funny'>('Casual');
-  const [dailyTokenUsage, setDailyTokenUsage] = useState<number>(0);
-  const [isLimitReached, setIsLimitReached] = useState<boolean>(false);
 
-  // --> Manage daily token quota logic with Firebase Firestore <--
-
-  const maxDailyTokens = 1000;
-
-  useEffect(() => {
-    const savedTokens = localStorage.getItem('dailyTokenUsage');
-    if (savedTokens) {
-      const tokens = parseInt(savedTokens, 10);
-      setDailyTokenUsage(tokens);
-      if (tokens >= maxDailyTokens) {
-        setIsLimitReached(true);
-      }
-    }
-  }, []);
-
-  const updateDailyTokenUsage = (tokens: number) => {
-    const newUsage = dailyTokenUsage + tokens;
-    setDailyTokenUsage(newUsage);
-    localStorage.setItem('dailyTokenUsage', newUsage.toString());
-    if (newUsage >= maxDailyTokens) {
-      setIsLimitReached(true);
-    }
-  };
+  const { isLimitReached, updateDailyTokenUsage } = useDailyToken();
+  const typedResponse = useTypingEffect(tweet, 50);
 
   const handleGenerateTweet = useCallback(async () => {
     if (isLimitReached) {
@@ -163,14 +113,14 @@ export const Form: React.FC = () => {
     setIsModalOpen(true);
     try {
       const { content, usage } = await getTweetResponse(theme, vibe);
-      setTweet(content);
+      setTweet(cleanResponse(content));
       updateDailyTokenUsage(usage.total_tokens);
     } catch (error) {
       console.error('Failed to fetch tweet response:', error);
     } finally {
       setLoading(false);
     }
-  }, [theme, vibe, dailyTokenUsage, isLimitReached]);
+  }, [theme, vibe, isLimitReached, updateDailyTokenUsage]);
 
   const handleOutputCopy = useCallback(() => {
     setCopyButtonText('Copied text');
@@ -199,10 +149,7 @@ export const Form: React.FC = () => {
 
   return (
     <Container>
-      <Step>
-        <StepLabel data-step="1">
-          Enter the topic or content for your tweet.
-        </StepLabel>
+      <Step step="1" label="Enter the topic or content for your tweet.">
         <TextArea
           placeholder="I bought Dogecoin thinking I'd get rich...."
           rows={4}
@@ -210,8 +157,7 @@ export const Form: React.FC = () => {
           onChange={(event) => setTheme(event.target.value)}
         />
       </Step>
-      <Step>
-        <StepLabel data-step="2">Choose the tone of your tweet.</StepLabel>
+      <Step step="2" label="Choose the tone of your tweet.">
         <Select value={vibe} onChange={(event) => setVibe(event.target.value as 'Casual' | 'Professional' | 'Funny')}>
           <option value="Professional">Professional</option>
           <option value="Casual">Casual</option>
@@ -221,24 +167,23 @@ export const Form: React.FC = () => {
       <Button onClick={handleGenerateTweet}>Generate your tweet →</Button>
       {isModalOpen && (
         <Modal onClose={handleCloseModal}>
-          {loading ? (
-            <DotLoader />
-          ) : (
-            <Step isModalContent>
-              <StepLabel data-step="3">
-                {isLimitReached ? "Daily limit reached" : "Here's your tweet!"}
-              </StepLabel>
-              <TweetContainer>
-                {isLimitReached ? 'You have reached your daily limit of generated tweets. Please try again tomorrow.' : tweet}
-              </TweetContainer>
-              {!isLimitReached ? (
-                <ButtonWrapper>
-                  <ActionButton icon={<RxReload />} text="Relaunch" onClick={handleGenerateTweet} />
-                  <ActionButton icon={<RxCopy />} text={copyButtonText} onClick={onCopyTweetOutputClick} />
-                </ButtonWrapper>
-              ) : null}
-            </Step>
-          )}
+          <Step step="3" label={isLimitReached ? "Daily limit reached" : "Here's your tweet!"} isModalContent>
+            <TweetContainer>
+              {isLimitReached ? (
+                'You have reached your daily limit of generated tweets. Please try again tomorrow.'
+              ) : (
+                !loading ? (
+                  <StyledTweet>{typedResponse}</StyledTweet>
+                ) : <DotLoader />
+              )}
+            </TweetContainer>
+            {!isLimitReached && !loading && (
+              <ButtonWrapper>
+                <ActionButton icon={<RxReload />} text="Relaunch" onClick={handleGenerateTweet} />
+                <ActionButton icon={<RxCopy />} text={copyButtonText} onClick={onCopyTweetOutputClick} />
+              </ButtonWrapper>
+            )}
+          </Step>
         </Modal>
       )}
     </Container>

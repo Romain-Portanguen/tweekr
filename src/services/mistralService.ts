@@ -1,5 +1,5 @@
 import MistralClient from '@mistralai/mistralai';
-import { initialPrompt } from '../config/prompts';
+import { improvedPrompt } from '../config/prompts';
 
 const apiKey = process.env.REACT_APP_MISTRAL_API_KEY;
 const model = 'open-mixtral-8x7b';
@@ -16,7 +16,7 @@ interface MistralResponse {
 }
 
 export const getTweetResponse = async (theme: string, vibe: 'Casual' | 'Professional' | 'Funny'): Promise<MistralResponse> => {
-  const prompt = `${initialPrompt}
+  const prompt = `${improvedPrompt}
 
 Theme: ${theme}
 Vibe: ${vibe}
