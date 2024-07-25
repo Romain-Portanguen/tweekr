@@ -1,3 +1,5 @@
+# Config files
+/src/config
 
 # Node modules
 node_modules
