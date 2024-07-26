@@ -35,6 +35,7 @@ export const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6 {
     color: ${colors.textPrimary};
+    margin-bottom: 1rem;
   }
 
   p {
@@ -67,6 +68,10 @@ export const GlobalStyle = createGlobalStyle`
     h2 {
       font-size: ${fontSizes.medium};
     }
+
+    h3 {
+      font-size: ${fontSizes.medium};
+    }
   }
 
   @media (min-width: ${breakpoints.mobile}) and (max-width: ${breakpoints.tablet}) {
@@ -81,19 +86,45 @@ export const GlobalStyle = createGlobalStyle`
     h2 {
       font-size: ${fontSizes.large};
     }
+
+    h3 {
+      font-size: ${fontSizes.large};
+    }
   }
 
-  @media (min-width: ${breakpoints.tablet}) {
+  @media (min-width: ${breakpoints.tablet}) and (max-width: ${breakpoints.desktop}) {
     body {
       font-size: ${fontSizes.large};
     }
 
     h1 {
-      font-size: ${fontSizes.xlarge};
+      font-size: 2rem;
     }
 
     h2 {
+      font-size: ${fontSizes.xlarge};
+    }
+
+    h3 {
       font-size: ${fontSizes.large};
+    }
+  }
+
+  @media (min-width: ${breakpoints.desktop}) {
+    body {
+      font-size: ${fontSizes.large};
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: ${fontSizes.xlarge};
     }
   }
 `;

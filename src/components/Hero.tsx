@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import styled from "styled-components";
 import { ActionButton } from "./ActionButton";
 import { RxGithubLogo } from "react-icons/rx";
+import { breakpoints } from '../styles/globals';
 
 const Container = styled.section`
   align-items: center;
@@ -19,6 +20,10 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 24px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    gap: 16px;
+  }
 `;
 
 const Title = styled.h1`
@@ -28,6 +33,10 @@ const Title = styled.h1`
   line-height: 1.2;
   margin: 0;
   text-align: center;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 28px;
+  }
 `;
 
 export const Hero: React.FC = () => {

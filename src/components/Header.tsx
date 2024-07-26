@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { TbWritingSign } from "react-icons/tb";
 import { Hamburger } from './Hamburger';
+import { breakpoints } from '../styles/globals';
 
 const Container = styled.header`
   align-items: center;
@@ -12,6 +13,11 @@ const Container = styled.header`
   max-width: 920px;
   padding: 16px 0;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+    gap: 8px;
+  }
 `;
 
 const ContentWrapper = styled.div`
@@ -26,6 +32,10 @@ const Title = styled.h1`
   font-weight: 600;
   line-height: 1.5;
   margin: 0;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 20px;
+  }
 `;
 
 const IconWrapper = styled.a`

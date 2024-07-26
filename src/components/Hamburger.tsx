@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { DropdownMenu } from './DropdownMenu';
+import { breakpoints } from '../styles/globals';
 
 const StyledLabel = styled.label`
   align-items: center;
@@ -18,6 +19,11 @@ const StyledSvg = styled.svg`
   height: 2em;
   transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
   width: 2em;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    height: 1.5em;
+    width: 1.5em;
+  }
 `;
 
 const StyledPath = styled.path`

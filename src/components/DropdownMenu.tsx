@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { breakpoints } from '../styles/globals';
 
 const Menu = styled.div<{ open: boolean }>`
   background-color: white;
@@ -17,6 +18,10 @@ const Menu = styled.div<{ open: boolean }>`
   transition: top 0.3s ease, opacity 0.3s ease;
   width: 250px;
   z-index: 1000;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 200px;
+  }
 `;
 
 const MenuItem = styled.button`
@@ -32,6 +37,11 @@ const MenuItem = styled.button`
 
   &:hover {
     background-color: #E2E8F0;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+    padding: 6px 12px;
   }
 `;
 

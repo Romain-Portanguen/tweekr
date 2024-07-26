@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { breakpoints } from '../styles/globals';
 
 const StepContainer = styled.div<{ isModalContent?: boolean }>`
   align-items: ${({ isModalContent }) => isModalContent ? 'center' : 'flex-start'};
@@ -8,6 +9,10 @@ const StepContainer = styled.div<{ isModalContent?: boolean }>`
   gap: 6px;
   margin-bottom: 24px;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    gap: 4px;
+  }
 `;
 
 const StepLabel = styled.label`
@@ -37,6 +42,16 @@ const StepLabel = styled.label`
 
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 16px;
+
+    &::before {
+      height: 20px;
+      line-height: 20px;
+      width: 20px;
     }
   }
 `;

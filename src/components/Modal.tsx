@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
+import { breakpoints } from '../styles/globals';
 
 const ModalBackground = styled.div`
   align-items: center;
@@ -25,6 +26,11 @@ const ModalContent = styled.div`
   padding: 24px;
   position: relative;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 16px;
+    height: auto;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -51,6 +57,12 @@ const CloseButton = styled.button`
   &:hover {
     background-color: #E2E8F0;
     border-color: #CBD5E0;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 20px;
+    height: 28px;
+    width: 28px;
   }
 `;
 

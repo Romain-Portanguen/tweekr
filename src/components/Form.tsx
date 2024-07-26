@@ -9,6 +9,7 @@ import { RxReload, RxCopy } from "react-icons/rx";
 import { Step } from './Step';
 import { useDailyToken } from '../hooks/useDailyToken';
 import { useTypingEffect } from '../hooks/useTypingEffect';
+import { breakpoints } from '../styles/globals';
 
 const Container = styled.div`
   align-items: center;
@@ -29,6 +30,10 @@ const TextArea = styled.textarea`
   padding: 12px;
   resize: none;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const Select = styled.select`
@@ -39,6 +44,10 @@ const Select = styled.select`
   margin-bottom: 24px;
   padding: 12px;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const Button = styled.button`
@@ -59,12 +68,22 @@ const Button = styled.button`
   &:hover {
     background-color: #333;
   }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
 `;
 
 const ButtonWrapper = styled.div`
   display: flex;
   gap: 16px;
   margin-top: 24px;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    flex-direction: column;
+    gap: 8px;
+  }
 `;
 
 const TweetContainer = styled.div`
@@ -81,6 +100,10 @@ const TweetContainer = styled.div`
   overflow-y: auto;
   padding: 16px;
   width: 100%;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+  }
 `;
 
 const StyledTweet = styled.div`
@@ -90,6 +113,11 @@ const StyledTweet = styled.div`
   line-height: 1.6;
   padding: 16px;
   text-align: center;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    font-size: 14px;
+    padding: 12px;
+  }
 `;
 
 export const Form: React.FC = () => {
